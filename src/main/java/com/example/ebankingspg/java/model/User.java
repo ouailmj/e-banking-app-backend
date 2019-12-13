@@ -1,6 +1,10 @@
 package com.example.ebankingspg.java.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
@@ -15,21 +19,23 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 
-public class User implements Serializable {
+public class User implements Serializable , UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
     @SequenceGenerator(name = "user_seq", sequenceName = "user_seq", allocationSize = 1)
     private Long id;
-    private String username;
     private String password;
     private String firstname;
     private String lastname;
     private String email;
     private String numtel;
+    private boolean isValid;
     private Date datecreation;
     private Date dateupdate;
     private String adress;
+    private String role;
     private String status;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Account> account;
 
@@ -64,20 +70,6 @@ public class User implements Serializable {
      */
     public void setId(Long id) {
         this.id = id;
-    }
-
-    /**
-     * @return String return the username
-     */
-    public String getUsername() {
-        return username;
-    }
-
-    /**
-     * @param username the username to set
-     */
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     /**
@@ -151,8 +143,6 @@ public class User implements Serializable {
         this.numtel = numtel;
     }
 
-
-
     /**
      * @return Date return the datecreation
      */
@@ -181,7 +171,6 @@ public class User implements Serializable {
         this.dateupdate = dateupdate;
     }
 
-
     /**
      * @return Set<Account> return the account
      */
@@ -196,7 +185,6 @@ public class User implements Serializable {
         this.account = account;
     }
 
-
     /**
      * @return String return the adress
      */
@@ -210,5 +198,54 @@ public class User implements Serializable {
     public void setAdress(String adress) {
         this.adress = adress;
     }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public boolean isValid() {
+        return isValid;
+    }
+
+    public void setValid(boolean valid) {
+        isValid = valid;
+    }
+
+    /**
+     * @return String return the username
+     */
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return this.isValid;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return this.isValid;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return this.isValid;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
 
 }

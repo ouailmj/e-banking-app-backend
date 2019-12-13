@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 public class Transaction implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
-    @SequenceGenerator(name = "user_seq", sequenceName = "user_seq", allocationSize = 1)
+    @SequenceGenerator(name = "transact_seq", sequenceName = "transact_seq", allocationSize = 1)
     private Long id;
     private double montant;
     private String motif;
