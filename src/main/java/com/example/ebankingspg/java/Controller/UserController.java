@@ -1,35 +1,53 @@
 package com.example.ebankingspg.java.Controller;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.annotation.PostConstruct;
-
+import com.example.ebankingspg.java.request.AuthenticationRequest;
+import com.example.ebankingspg.java.response.AuthenticationResponse;
+import com.example.ebankingspg.java.services.MyUserDetailsService;
+import com.example.ebankingspg.java.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
 import com.example.ebankingspg.java.Repository.UserRepository;
 import com.example.ebankingspg.java.model.*;
 @CrossOrigin()
 @RestController
-@RequestMapping({ "/users" })
 public class UserController {
 
-	@Autowired
-	private UserRepository userrep;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtUtil jwtTokenUtil;
+
+    @Autowired
+    private MyUserDetailsService userDetailsService;
 
 	@GetMapping(produces = "application/json")
-  @RequestMapping({ "/validateLogin" })
+  	@RequestMapping(value = "/login" , method = RequestMethod.POST)
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword())
+            );
+        }catch (BadCredentialsException e){
+            throw new Exception("Incorrect username or password", e);
+        }
+        final UserDetails userDetails = userDetailsService
+                .loadUserByUsername(authenticationRequest.getEmail());
+        final String jwt = jwtTokenUtil.generateToken(userDetails);
+
+        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+    }
 
 
-	public User validateLogin() {
-		return new User("User successfully authenticated");
-	}
-
+    @GetMapping(produces = "application/json")
+    @RequestMapping(value = "/home")
+    public String home(){
+	    return "homePage";
+    }
 
 }
