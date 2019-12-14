@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,6 +32,11 @@ public class Transaction implements Serializable {
     @JsonBackReference
     private Account account;
 
+
+    @JsonBackReference
+	  @OneToOne(fetch = FetchType.LAZY, optional = false)
+	  @JoinColumn(name = "accounttargetId")
+	   private Account accounttarget;
 
   public Transaction (){
 
@@ -123,5 +129,20 @@ public class Transaction implements Serializable {
     }
 
 
+
+
+    /**
+     * @return Account return the accounttarget
+     */
+    public Account getAccounttarget() {
+        return accounttarget;
+    }
+
+    /**
+     * @param accounttarget the accounttarget to set
+     */
+    public void setAccounttarget(Account accounttarget) {
+        this.accounttarget = accounttarget;
+    }
 
 }

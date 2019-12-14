@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,6 +18,7 @@ import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 
@@ -36,6 +38,10 @@ public class Account implements Serializable {
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private Set<Transaction> transaction;
 
+    @JsonManagedReference
+    @OneToOne(mappedBy="accounttarget",fetch = FetchType.LAZY,
+              cascade =  CascadeType.ALL)
+    private Transaction transactiontarget;
 
     @ManyToOne
     @JoinColumn(name = "userId")
