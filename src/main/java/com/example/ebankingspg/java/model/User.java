@@ -28,7 +28,7 @@ public class User implements Serializable , UserDetails {
     private Date dateupdate;
     private String adress;
     private String status;
-
+    private String token;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Account> account;
 
@@ -202,6 +202,14 @@ public class User implements Serializable , UserDetails {
 
     public void setValid(boolean valid) {
         isValid = valid;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     /**

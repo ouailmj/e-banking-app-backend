@@ -24,4 +24,5 @@ public class MyUserDetailsService implements UserDetailsService {
         optionalUser.orElseThrow(()->new UsernameNotFoundException("email not found"));
         return optionalUser.get();
     }
+    
 }
