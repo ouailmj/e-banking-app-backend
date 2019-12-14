@@ -1,25 +1,19 @@
 package com.example.ebankingspg.java.model;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Set;
+import java.util.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-
 public class User implements Serializable , UserDetails {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
     @SequenceGenerator(name = "user_seq", sequenceName = "user_seq", allocationSize = 1)
@@ -33,11 +27,14 @@ public class User implements Serializable , UserDetails {
     private Date datecreation;
     private Date dateupdate;
     private String adress;
-    private String role;
     private String status;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Account> account;
+
+    @ManyToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+    @JoinTable(name="user_role", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="role_id"))
+    private Set<Role> roles;
 
     public User(){}
 
@@ -199,14 +196,6 @@ public class User implements Serializable , UserDetails {
         this.adress = adress;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public boolean isValid() {
         return isValid;
     }
@@ -244,8 +233,18 @@ public class User implements Serializable , UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
+        this.roles.forEach(role-> {
+            list.add(new SimpleGrantedAuthority(role.getRole()));
+        });
+        return list;
     }
 
+    public Set<Role> getRoles() {
+        return this.roles;
+    }
 
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 }
