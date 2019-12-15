@@ -30,8 +30,8 @@ public GestTransac(){
 
 }
 
-public GestTransac(String firstname, String lastname, String numtel, String email, String adress, String password, String token){
-  super(firstname, lastname, numtel, email , adress, password, token);
+public GestTransac(String firstname, String lastname, String numtel, String email, String adress, String password){
+  super(firstname, lastname, numtel, email , adress, password);
   }
 
     /**

@@ -30,7 +30,7 @@ public class GestClient extends User implements Serializable {
     @JsonBackReference
     private Agency agency;
     @Builder
-    public GestClient(String firstname, String lastname, String numtel, String email, String adress, String password, String token){
-      super(firstname, lastname, numtel, email , adress, password, token);
+    public GestClient(String firstname, String lastname, String numtel, String email, String adress, String password){
+      super(firstname, lastname, numtel, email , adress, password);
       }
 }

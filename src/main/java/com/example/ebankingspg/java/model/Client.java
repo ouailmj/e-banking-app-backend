@@ -30,8 +30,8 @@ public class Client extends User implements Serializable {
     private Agency agency;
 
     @Builder
-    public Client(String firstname, String lastname, String email, String numtel, String adress, String password,  String token, Set<Account> account, Agency agency) {
-        super(firstname, lastname, email, numtel, adress, password, token);
+    public Client(String firstname, String lastname, String email, String numtel, String adress, String password,  Set<Account> account, Agency agency) {
+        super(firstname, lastname, email, numtel, adress, password);
         this.account = account;
         this.agency = agency;
     }

@@ -36,7 +36,7 @@ public class User extends AbstractAuditableEntity<User, Long> implements Seriali
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    public User(String firstname, String lastname, String email, String numtel, String adress, String password, String token){
+    public User(String firstname, String lastname, String numtel,String email,  String adress, String password){
 
  super();
  this.firstname=firstname;
@@ -44,7 +44,7 @@ public class User extends AbstractAuditableEntity<User, Long> implements Seriali
  this.email=email;
  this.numtel=numtel;
  this.adress=adress;
- this.token=token;
+
     }
 
     public User(){}
@@ -209,14 +209,6 @@ public class User extends AbstractAuditableEntity<User, Long> implements Seriali
         return this.isValid;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
-        this.roles.forEach(role-> {
-            list.add(new SimpleGrantedAuthority(role.getRole()));
-        });
-        return list;
-    }
 
     public Set<Role> getRoles() {
         return this.roles;
@@ -225,4 +217,30 @@ public class User extends AbstractAuditableEntity<User, Long> implements Seriali
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
+        this.roles.forEach(role-> {
+            list.add(new SimpleGrantedAuthority(role.getRoles()));
+        });
+        return list;
+    }
+
+
+
+    /**
+     * @return boolean return the isValid
+     */
+    public boolean isIsValid() {
+        return isValid;
+    }
+
+    /**
+     * @param isValid the isValid to set
+     */
+    public void setIsValid(boolean isValid) {
+        this.isValid = isValid;
+    }
+
 }
