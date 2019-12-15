@@ -13,4 +13,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long> {
 
+    @Query("SELECT COUNT(c) FROM Client c ")
+    Long countAllClient();
 }

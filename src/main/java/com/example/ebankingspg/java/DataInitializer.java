@@ -41,7 +41,7 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
+        /*
         if(LOAD_INITIAL_DATA){
 
             Role role_client_manager = Role.builder().role(ROLE_CLIENT_MANAGER).build();
@@ -108,6 +108,8 @@ public class DataInitializer implements CommandLineRunner {
             userService.create(transactionManager);
 
         }
+    */
 
     }
+
 }

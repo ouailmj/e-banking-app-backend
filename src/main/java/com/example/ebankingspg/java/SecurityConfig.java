@@ -39,11 +39,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/login").permitAll()
 				.antMatchers("/send_email").permitAll()
 				.antMatchers("/forgot_password").permitAll()
-				.antMatchers("/clientManager/**").hasAuthority("ROLE_CLIENT_MANAGER")
+				.antMatchers("/manager_client/**").hasAuthority("ROLE_CLIENT_MANAGER")
 				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 				.anyRequest().authenticated()
 				.and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.and().cors()
 		;
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 	}
