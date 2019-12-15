@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.ebankingspg.java.Repository.DeviseRepository;
 import com.example.ebankingspg.java.Repository.UserRepository;
 import com.example.ebankingspg.java.model.*;
 @CrossOrigin()
@@ -20,5 +22,23 @@ import com.example.ebankingspg.java.model.*;
 @RequestMapping({ "/devises" })
 public class DeviseController {
 
+  @Autowired
+  DeviseRepository devrep;
+
+
+  @GetMapping(produces = "application/json")
+  public List<Devise> firstPage() {
+      List<Devise> devises = devrep.findAll();
+      return devises;
+  }
+
+
+  @PostMapping
+  public Devise create(@RequestBody Devise devise) {
+
+      devrep.save(devise);
+
+      return devise;
+  }
 
 }

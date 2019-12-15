@@ -24,6 +24,10 @@ public class Agence implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "agence_seq")
     @SequenceGenerator(name = "agence_seq", sequenceName = "agence_seq", allocationSize = 1)
     private Long id;
+    private String nomagence;
+    private String adress;
+    private int numtel;
+
 
     @OneToMany(mappedBy = "agence", cascade = CascadeType.ALL)
     private Set<Client> client;
@@ -96,6 +100,49 @@ public Agence(){
      */
     public void setGesttransac(Set<GestTransac> gesttransac) {
         this.gesttransac = gesttransac;
+    }
+
+
+    /**
+     * @return String return the nomagence
+     */
+    public String getNomagence() {
+        return nomagence;
+    }
+
+    /**
+     * @param nomagence the nomagence to set
+     */
+    public void setNomagence(String nomagence) {
+        this.nomagence = nomagence;
+    }
+
+    /**
+     * @return String return the adress
+     */
+    public String getAdress() {
+        return adress;
+    }
+
+    /**
+     * @param adress the adress to set
+     */
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
+    /**
+     * @return int return the numtel
+     */
+    public int getNumtel() {
+        return numtel;
+    }
+
+    /**
+     * @param numtel the numtel to set
+     */
+    public void setNumtel(int numtel) {
+        this.numtel = numtel;
     }
 
 }
