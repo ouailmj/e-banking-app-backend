@@ -13,12 +13,33 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.ebankingspg.java.Repository.GesttransacRepository;
 import com.example.ebankingspg.java.Repository.UserRepository;
 import com.example.ebankingspg.java.model.*;
 @CrossOrigin()
 @RestController
-@RequestMapping({ "/debits" })
-public class DebitController {
+@RequestMapping({ "/gesttransacs" })
+public class GesttransacController {
+  @Autowired
+   private GesttransacRepository gesttransrep;
+
+
+   @GetMapping(produces = "application/json")
+   public List<GestTransac> firstPage() {
+       List<GestTransac> gesttrans = gesttransrep.findAll();
+       return gesttrans;
+   }
+
+
+   @PostMapping
+   public GestTransac create(@RequestBody GestTransac gestTransac) {
+
+       gesttransrep.save(gestTransac);
+
+       return gestTransac;
+   }
+
 
 
 }

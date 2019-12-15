@@ -13,12 +13,30 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.ebankingspg.java.Repository.AgenceRepository;
 import com.example.ebankingspg.java.Repository.UserRepository;
 import com.example.ebankingspg.java.model.*;
 @CrossOrigin()
 @RestController
-@RequestMapping({ "/debits" })
-public class DebitController {
+@RequestMapping({ "/agences" })
+public class AgenceController {
 
+   @Autowired
+   private AgenceRepository agencerep;
+
+   @GetMapping(produces = "application/json")
+   public List<Agence> firstPage() {
+       List<Agence> agences = agencerep.findAll();
+       return agences;
+   }
+
+   @PostMapping
+   public Agence create(@RequestBody Agence agence) {
+
+       agencerep.save(agence);
+
+       return agence;
+   }
 
 }

@@ -13,12 +13,31 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.ebankingspg.java.Repository.CommissionRepository;
 import com.example.ebankingspg.java.Repository.UserRepository;
 import com.example.ebankingspg.java.model.*;
 @CrossOrigin()
 @RestController
-@RequestMapping({ "/debits" })
-public class DebitController {
+@RequestMapping({ "/commissions" })
+public class CommissionController {
+
+@Autowired
+CommissionRepository commissionrep;
 
 
+@GetMapping(produces = "application/json")
+   public List<Commission> firstPage() {
+       List<Commission> commissions = commissionrep.findAll();
+       return commissions;
+   }
+
+
+   @PostMapping
+   public Commission create(@RequestBody Commission commission) {
+
+       commissionrep.save(commission);
+
+       return commission;
+   }
 }
