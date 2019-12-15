@@ -25,12 +25,19 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Devise extends AbstractAuditableEntity<User, Long> implements Serializable {
+public class Agency extends AbstractAuditableEntity<User, Long> implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "devise_seq")
-    @SequenceGenerator(name = "devise_seq", sequenceName = "devise_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "agence_seq")
+    @SequenceGenerator(name = "agence_seq", sequenceName = "agence_seq", allocationSize = 1)
     private Long id;
-    private String name;
-    private double exchangeRate; //taux de change
+
+    @OneToMany(mappedBy = "agency", cascade = CascadeType.ALL)
+    private Set<Client> client;
+
+    @OneToMany(mappedBy = "agency", cascade = CascadeType.ALL)
+    private Set<GestClient> gestClients;
+
+    @OneToMany(mappedBy = "agency", cascade = CascadeType.ALL)
+    private Set<GestTransac> gestTransacs;
 
 }

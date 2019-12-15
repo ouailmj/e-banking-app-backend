@@ -1,17 +1,20 @@
 package com.example.ebankingspg.java.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-
 @Entity
-public class User implements Serializable , UserDetails {
+@AllArgsConstructor
+@Inheritance( strategy = InheritanceType.TABLE_PER_CLASS )
+public class User extends AbstractAuditableEntity<User, Long> implements Serializable, UserDetails {
 
 
     @Id
@@ -24,18 +27,17 @@ public class User implements Serializable , UserDetails {
     private String email;
     private String numtel;
     private boolean isValid;
-    private Date datecreation;
-    private Date dateupdate;
     private String adress;
     private String status;
     private String token;
 
 
-    @ManyToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-    @JoinTable(name="user_role", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="role_id"))
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    public User(){}
+    public User() {
+    }
 
     public User(String status) {
         this.status = status;
@@ -139,34 +141,6 @@ public class User implements Serializable , UserDetails {
         this.numtel = numtel;
     }
 
-    /**
-     * @return Date return the datecreation
-     */
-    public Date getDatecreation() {
-        return datecreation;
-    }
-
-    /**
-     * @param datecreation the datecreation to set
-     */
-    public void setDatecreation(Date datecreation) {
-        this.datecreation = datecreation;
-    }
-
-    /**
-     * @return Date return the dateupdate
-     */
-    public Date getDateupdate() {
-        return dateupdate;
-    }
-
-    /**
-     * @param dateupdate the dateupdate to set
-     */
-    public void setDateupdate(Date dateupdate) {
-        this.dateupdate = dateupdate;
-    }
-
 
     /**
      * @return String return the adress
@@ -228,7 +202,7 @@ public class User implements Serializable , UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
-        this.roles.forEach(role-> {
+        this.roles.forEach(role -> {
             list.add(new SimpleGrantedAuthority(role.getRole()));
         });
         return list;

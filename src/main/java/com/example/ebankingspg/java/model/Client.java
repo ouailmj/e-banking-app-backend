@@ -1,26 +1,20 @@
 package com.example.ebankingspg.java.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.*;
 
 @Entity
-public class Client implements Serializable {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Client extends User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_seq")
     @SequenceGenerator(name = "client_seq", sequenceName = "client_seq", allocationSize = 1)
@@ -31,57 +25,18 @@ public class Client implements Serializable {
     private Set<Account> account;
 
     @ManyToOne
-    @JoinColumn(name = "agenceId")
+    @JoinColumn(name = "agencyId")
     @JsonBackReference
-    private Agence agence;
+    private Agency agency;
 
-
-
-    public Client(){}
-
-
-
-    /**
-     * @return Long return the id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    /**
-     * @return Set<Account> return the account
-     */
-    public Set<Account> getAccount() {
-        return account;
-    }
-
-    /**
-     * @param account the account to set
-     */
-    public void setAccount(Set<Account> account) {
+    @Builder
+    public Client(Long id, String password, String firstname, String lastname, String email, String numtel, boolean isValid, String adress, String status, String token, Set<Role> roles, Set<Account> account, Agency agency) {
+        super(id, password, firstname, lastname, email, numtel, isValid, adress, status, token, roles);
         this.account = account;
+        this.agency = agency;
     }
 
+    @OneToMany(mappedBy = "client")
+    Set<Beneficiary> beneficiaries;
 
-    /**
-     * @return Agence return the agence
-     */
-    public Agence getAgence() {
-        return agence;
-    }
-
-    /**
-     * @param agence the agence to set
-     */
-    public void setAgence(Agence agence) {
-        this.agence = agence;
-    }
-
-  }
+}
