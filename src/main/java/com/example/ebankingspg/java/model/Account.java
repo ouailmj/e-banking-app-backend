@@ -48,6 +48,12 @@ public class Account implements Serializable {
     @JsonBackReference
     private Client client;
 
+    @JsonBackReference
+	  @OneToOne(fetch = FetchType.LAZY, optional = false)
+	  @JoinColumn(name = "typecontratId")
+     private Typecontrat typecontrat;
+
+
     public Account(){}
 
     /**
