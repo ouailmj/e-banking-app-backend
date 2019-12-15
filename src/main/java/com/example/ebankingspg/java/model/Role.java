@@ -1,36 +1,31 @@
 package com.example.ebankingspg.java.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
+
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
+@Builder
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "role")
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "role_id")
-    private int roleId;
+    private Long roleId;
 
     @Column(name = "role")
     private String role;
 
-    public Role() {
-    }
+    @JsonIgnore
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users;
 
-    public int getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 }

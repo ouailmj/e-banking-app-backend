@@ -15,134 +15,33 @@ import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.*;
 
 @Entity
+@Builder
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 
-public class Transaction implements Serializable {
+public class Transaction extends AbstractAuditableEntity<User, Long> implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
     @SequenceGenerator(name = "transact_seq", sequenceName = "transact_seq", allocationSize = 1)
     private Long id;
-    private double montant;
+    private double amount;
     private String motif;
     private Boolean active;
-    private Date created_at;
+
     @ManyToOne
-    @JoinColumn(name = "accountId")
+    @JoinColumn(name = "account_id")
     @JsonBackReference
     private Account account;
 
 
     @JsonBackReference
-	  @OneToOne(fetch = FetchType.LAZY, optional = false)
-	  @JoinColumn(name = "accounttargetId")
-	   private Account accounttarget;
-
-  public Transaction (){
-
-  }
-
-
-    /**
-     * @return Long return the id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    /**
-     * @return double return the montant
-     */
-    public double getMontant() {
-        return montant;
-    }
-
-    /**
-     * @param montant the montant to set
-     */
-    public void setMontant(double montant) {
-        this.montant = montant;
-    }
-
-    /**
-     * @return String return the motif
-     */
-    public String getMotif() {
-        return motif;
-    }
-
-    /**
-     * @param motif the motif to set
-     */
-    public void setMotif(String motif) {
-        this.motif = motif;
-    }
-
-    /**
-     * @return Boolean return the active
-     */
-    public Boolean isActive() {
-        return active;
-    }
-
-    /**
-     * @param active the active to set
-     */
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    /**
-     * @return Date return the created_at
-     */
-    public Date getCreated_at() {
-        return created_at;
-    }
-
-    /**
-     * @param created_at the created_at to set
-     */
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
-    }
-
-
-    /**
-     * @return Account return the account
-     */
-    public Account getAccount() {
-        return account;
-    }
-
-    /**
-     * @param account the account to set
-     */
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-
-
-
-    /**
-     * @return Account return the accounttarget
-     */
-    public Account getAccounttarget() {
-        return accounttarget;
-    }
-
-    /**
-     * @param accounttarget the accounttarget to set
-     */
-    public void setAccounttarget(Account accounttarget) {
-        this.accounttarget = accounttarget;
-    }
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "account_target_id")
+    private Account accountTarget;
 
 }

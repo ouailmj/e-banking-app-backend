@@ -17,57 +17,20 @@ import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.*;
 
 @Entity
-public class Commission implements Serializable {
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Commission extends AbstractAuditableEntity<User,Long> implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "commission_seq")
     @SequenceGenerator(name = "commission_seq", sequenceName = "commission_seq", allocationSize = 1)
     private Long id;
     private double TVA;
     private double transfert;
-
-
-    /**
-     * @return Long return the id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    /**
-     * @return double return the TVA
-     */
-    public double getTVA() {
-        return TVA;
-    }
-
-    /**
-     * @param TVA the TVA to set
-     */
-    public void setTVA(double TVA) {
-        this.TVA = TVA;
-    }
-
-    /**
-     * @return double return the transfert
-     */
-    public double getTransfert() {
-        return transfert;
-    }
-
-    /**
-     * @param transfert the transfert to set
-     */
-    public void setTransfert(double transfert) {
-        this.transfert = transfert;
-    }
 
 }

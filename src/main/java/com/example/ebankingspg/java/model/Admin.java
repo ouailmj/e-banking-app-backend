@@ -17,15 +17,22 @@ import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.*;
 
 @Entity
-public class Admin implements Serializable {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Admin extends User implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "admin_seq")
     @SequenceGenerator(name = "admin_seq", sequenceName = "admin_seq", allocationSize = 1)
     private Long id;
 
-public Admin(){
-
-}
+    @Builder
+    public Admin(Long id, String password, String firstname, String lastname, String email, String numtel, boolean isValid, String adress, String status, String token, Set<Role> roles) {
+        super(id, password, firstname, lastname, email, numtel, isValid, adress, status, token, roles);
+    }
 }
