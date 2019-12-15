@@ -14,32 +14,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.ebankingspg.java.Repository.GesttransacRepository;
+import com.example.ebankingspg.java.Repository.CommissionRepository;
 import com.example.ebankingspg.java.Repository.UserRepository;
 import com.example.ebankingspg.java.model.*;
 @CrossOrigin()
 @RestController
-@RequestMapping({ "/gesttransacs" })
-public class GesttransacController {
-  @Autowired
-   private GesttransacRepository gesttransrep;
+@RequestMapping({ "/commissions" })
+public class CommissionController {
+
+@Autowired
+CommissionRepository commissionrep;
 
 
-   @GetMapping(produces = "application/json")
-   public List<GestTransac> firstPage() {
-       List<GestTransac> gesttrans = gesttransrep.findAll();
-       return gesttrans;
+@GetMapping(produces = "application/json")
+   public List<Commission> firstPage() {
+       List<Commission> commissions = commissionrep.findAll();
+       return commissions;
    }
 
 
    @PostMapping
-   public GestTransac create(@RequestBody GestTransac gestTransac) {
+   public Commission create(@RequestBody Commission commission) {
 
-       gesttransrep.save(gestTransac);
+       commissionrep.save(commission);
 
-       return gestTransac;
+       return commission;
    }
-
-
-
 }
