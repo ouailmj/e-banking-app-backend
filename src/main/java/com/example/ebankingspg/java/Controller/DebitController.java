@@ -17,7 +17,7 @@ import com.example.ebankingspg.java.Repository.UserRepository;
 import com.example.ebankingspg.java.model.*;
 @CrossOrigin()
 @RestController
-@RequestMapping({ "/users" })
+@RequestMapping({ "/debits" })
 public class DebitController {
 
 

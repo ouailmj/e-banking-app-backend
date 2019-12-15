@@ -19,7 +19,7 @@ import com.example.ebankingspg.java.Repository.UserRepository;
 import com.example.ebankingspg.java.model.*;
 @CrossOrigin()
 @RestController
-@RequestMapping({ "/users" })
+@RequestMapping({ "/accounts" })
 public class AccountController {
 @Autowired
 AccountRepository accountrep;
