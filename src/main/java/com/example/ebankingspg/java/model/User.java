@@ -36,17 +36,6 @@ public class User extends AbstractAuditableEntity<User, Long> implements Seriali
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    public User(String firstname, String lastname, String numtel,String email,  String adress, String password){
-
- super();
- this.firstname=firstname;
- this.lastname=lastname;
- this.email=email;
- this.numtel=numtel;
- this.adress=adress;
-
-    }
-
     public User(){}
 
     public User(String status) {
