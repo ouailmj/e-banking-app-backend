@@ -24,6 +24,7 @@ public class GestTransac implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gesttransac_seq")
     @SequenceGenerator(name = "gesttransacn_seq", sequenceName = "gesttransac_seq", allocationSize = 1)
     private Long id;
+
     @ManyToOne
     @JoinColumn(name = "agenceId")
     @JsonBackReference

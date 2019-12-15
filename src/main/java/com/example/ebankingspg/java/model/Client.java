@@ -35,10 +35,7 @@ public class Client implements Serializable {
     @JsonBackReference
     private Agence agence;
 
-    @ManyToOne
-    @JoinColumn(name = "gestagenceId")
-    @JsonBackReference
-    private GestClient gestclient;
+
 
     public Client(){}
 

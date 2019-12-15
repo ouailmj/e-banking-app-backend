@@ -30,8 +30,7 @@ public class GestClient implements Serializable {
     @JsonBackReference
     private Agence agence;
 
-    @OneToMany(mappedBy = "agence", cascade = CascadeType.ALL)
-    private Set<Client> client;
+
 
 public GestClient(){
 
@@ -66,18 +65,5 @@ public GestClient(){
     }
 
 
-    /**
-     * @return Set<Client> return the client
-     */
-    public Set<Client> getClient() {
-        return client;
-    }
-
-    /**
-     * @param client the client to set
-     */
-    public void setClient(Set<Client> client) {
-        this.client = client;
-    }
 
 }
