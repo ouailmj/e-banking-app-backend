@@ -1,20 +1,28 @@
 package com.example.ebankingspg.java.Controller;
 
 import com.example.ebankingspg.java.Repository.UserRepository;
+import com.example.ebankingspg.java.model.User;
 import com.example.ebankingspg.java.request.AuthenticationRequest;
+import com.example.ebankingspg.java.request.ForgotPasswordRequest;
+import com.example.ebankingspg.java.request.SendEmailRequest;
 import com.example.ebankingspg.java.response.AuthenticationResponse;
 import com.example.ebankingspg.java.response.StringResponse;
 import com.example.ebankingspg.java.services.MyUserDetailsService;
 import com.example.ebankingspg.java.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -29,8 +37,8 @@ public class UserController {
     @Autowired
     private MyUserDetailsService userDetailsService;
 
-    /*@Autowired
-    private JavaMailSender javaMailSender;*/
+    @Autowired
+    private JavaMailSender javaMailSender;
 
     @Autowired
     private UserRepository userRepository;
@@ -69,7 +77,6 @@ public class UserController {
         }
         return ResponseEntity.badRequest().body(new StringResponse("error"));
     }
-/*
 
     @GetMapping(produces = "application/json")
     @RequestMapping(value = "/home")
@@ -142,6 +149,5 @@ public class UserController {
 
         return sb.toString();
     }
-*/
 
 }

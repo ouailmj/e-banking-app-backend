@@ -13,7 +13,8 @@ import java.util.*;
 
 @Entity
 @AllArgsConstructor
-@Inheritance( strategy = InheritanceType.TABLE_PER_CLASS )
+@Inheritance(strategy=InheritanceType.JOINED)
+@DiscriminatorColumn(name="USER_TYPE")
 public class User extends AbstractAuditableEntity<User, Long> implements Serializable, UserDetails {
 
 
