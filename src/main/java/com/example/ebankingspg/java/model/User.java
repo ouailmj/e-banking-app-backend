@@ -29,8 +29,7 @@ public class User implements Serializable , UserDetails {
     private String adress;
     private String status;
     private String token;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Account> account;
+
 
     @ManyToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
     @JoinTable(name="user_role", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="role_id"))
@@ -168,19 +167,6 @@ public class User implements Serializable , UserDetails {
         this.dateupdate = dateupdate;
     }
 
-    /**
-     * @return Set<Account> return the account
-     */
-    public Set<Account> getAccount() {
-        return account;
-    }
-
-    /**
-     * @param account the account to set
-     */
-    public void setAccount(Set<Account> account) {
-        this.account = account;
-    }
 
     /**
      * @return String return the adress

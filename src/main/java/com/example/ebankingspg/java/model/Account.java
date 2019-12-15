@@ -44,9 +44,9 @@ public class Account implements Serializable {
     private Transaction transactiontarget;
 
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "clientId")
     @JsonBackReference
-    private User user;
+    private Client client;
 
     public Account(){}
 
@@ -178,18 +178,38 @@ public class Account implements Serializable {
     }
 
 
+
+
+
     /**
-     * @return User return the user
+     * @return Transaction return the transactiontarget
      */
-    public User getUser() {
-        return user;
+    public Transaction getTransactiontarget() {
+        return transactiontarget;
     }
 
     /**
-     * @param user the user to set
+     * @param transactiontarget the transactiontarget to set
      */
-    public void setUser(User user) {
-        this.user = user;
+    public void setTransactiontarget(Transaction transactiontarget) {
+        this.transactiontarget = transactiontarget;
+    }
+
+
+
+
+    /**
+     * @return Client return the client
+     */
+    public Client getClient() {
+        return client;
+    }
+
+    /**
+     * @param client the client to set
+     */
+    public void setClient(Client client) {
+        this.client = client;
     }
 
 }
