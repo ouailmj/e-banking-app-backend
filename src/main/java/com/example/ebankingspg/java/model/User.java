@@ -13,8 +13,7 @@ import java.util.*;
 
 @Entity
 @AllArgsConstructor
-@Inheritance(strategy=InheritanceType.JOINED)
-@DiscriminatorColumn(name="USER_TYPE")
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public class User extends AbstractAuditableEntity<User, Long> implements Serializable, UserDetails {
 
 
@@ -203,7 +202,7 @@ public class User extends AbstractAuditableEntity<User, Long> implements Seriali
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
-        this.roles.forEach(role -> {
+        this.roles.forEach(role-> {
             list.add(new SimpleGrantedAuthority(role.getRole()));
         });
         return list;

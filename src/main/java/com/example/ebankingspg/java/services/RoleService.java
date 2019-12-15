@@ -1,8 +1,6 @@
 package com.example.ebankingspg.java.services;
 
-import com.example.ebankingspg.java.Repository.GestTransacRepository;
 import com.example.ebankingspg.java.Repository.RoleRepository;
-import com.example.ebankingspg.java.model.GestTransac;
 import com.example.ebankingspg.java.model.Role;
 import org.springframework.stereotype.Service;
 
