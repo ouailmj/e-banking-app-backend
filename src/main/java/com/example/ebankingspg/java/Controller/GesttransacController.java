@@ -49,7 +49,7 @@ public class GesttransacController {
     String newpass = bCryptPasswordEncoder.encode(pass);
     gestTransac.setPassword(newpass);
     Set<Role> roles1 = new HashSet<Role>();
-    roles1.add(rolerep.findByRole("ROLE_CLIENT_MANAGER"));
+    roles1.add(rolerep.findByRole("ROLE_TRANSACTION_MANAGER"));
     gestTransac.setRoles(roles1);
        gesttransrep.save(gestTransac);
 
