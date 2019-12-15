@@ -26,13 +26,13 @@ public class AgenceController {
    private AgenceRepository agencerep;
 
    @GetMapping(produces = "application/json")
-   public List<Agence> firstPage() {
-       List<Agence> agences = agencerep.findAll();
+   public List<Agency> firstPage() {
+       List<Agency> agences = agencerep.findAll();
        return agences;
    }
 
    @PostMapping
-   public Agence create(@RequestBody Agence agence) {
+   public Agency create(@RequestBody Agency agence) {
 
        agencerep.save(agence);
 

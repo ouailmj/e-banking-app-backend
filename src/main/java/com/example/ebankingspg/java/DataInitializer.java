@@ -69,7 +69,7 @@ public class DataInitializer implements CommandLineRunner {
             userService.create(clientManager);
 
             Set<Role> roles3 = new HashSet<Role>();
-            roles2.add(roleService.findByRole(ROLE_TRANSACTION_MANAGER));
+            roles3.add(roleService.findByRole(ROLE_TRANSACTION_MANAGER));
             GestTransac transactionManager = GestTransac.builder().email("transaction_manager@gmail.com").password(passwordEncoder.encode("transaction_manager")).roles(roles3).build();
             userService.create(transactionManager);
 
