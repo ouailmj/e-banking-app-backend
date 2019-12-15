@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.ebankingspg.java.Repository.GesttransacRepository;
+import com.example.ebankingspg.java.Repository.GestTransacRepository;
 import com.example.ebankingspg.java.Repository.UserRepository;
 import com.example.ebankingspg.java.model.*;
 @CrossOrigin()
@@ -22,7 +22,7 @@ import com.example.ebankingspg.java.model.*;
 @RequestMapping({ "/gesttransacs" })
 public class GesttransacController {
   @Autowired
-   private GesttransacRepository gesttransrep;
+   private GestTransacRepository gesttransrep;
 
 
    @GetMapping(produces = "application/json")
