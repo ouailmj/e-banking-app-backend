@@ -222,7 +222,7 @@ public class User extends AbstractAuditableEntity<User, Long> implements Seriali
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
         this.roles.forEach(role-> {
-            list.add(new SimpleGrantedAuthority(role.getRoles()));
+            list.add(new SimpleGrantedAuthority(role.getRole()));
         });
         return list;
     }
