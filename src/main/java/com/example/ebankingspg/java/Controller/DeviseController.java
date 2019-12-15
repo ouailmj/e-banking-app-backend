@@ -13,16 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.example.ebankingspg.java.Repository.ClientRepository;
 import com.example.ebankingspg.java.Repository.UserRepository;
 import com.example.ebankingspg.java.model.*;
 @CrossOrigin()
 @RestController
 @RequestMapping({ "/clients" })
-public class ClientController {
+public class DeviseController {
 
-@Autowired
-ClientRepository clientrep;
 
 }
