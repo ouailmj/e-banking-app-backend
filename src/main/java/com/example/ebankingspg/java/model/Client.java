@@ -36,6 +36,12 @@ public class Client extends User implements Serializable {
         this.agency = agency;
     }
 
+    public Client(String firstname, String lastname, String email, String numtel, String adress, String password,  Set<Account> account, Agency agency) {
+        super(firstname, lastname, email, numtel, adress, password);
+        this.account = account;
+        this.agency = agency;
+    }
+
     @OneToMany(mappedBy = "client")
     Set<Beneficiary> beneficiaries;
 

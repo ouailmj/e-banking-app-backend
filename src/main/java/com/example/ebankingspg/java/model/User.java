@@ -58,6 +58,17 @@ public class User extends AbstractAuditableEntity<User, Long> implements Seriali
         this.email = email;
     }
 
+    public User(String firstname, String lastname, String numtel,String email,  String adress, String password){
+
+        super();
+        this.firstname=firstname;
+        this.lastname=lastname;
+        this.email=email;
+        this.numtel=numtel;
+        this.adress=adress;
+
+    }
+
     public String getStatus() {
         return status;
     }

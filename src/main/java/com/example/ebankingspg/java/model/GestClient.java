@@ -29,8 +29,16 @@ public class GestClient extends User implements Serializable {
     @JoinColumn(name = "agencyId")
     @JsonBackReference
     private Agency agency;
+
     @Builder
+    public GestClient(Long id, String password, String firstname, String lastname, String email, String numtel, boolean isValid, String adress, String status, String token, Set<Role> roles, Agency agency) {
+        super(id, password, firstname, lastname, email, numtel, isValid, adress, status, token, roles);
+        this.agency = agency;
+    }
+
     public GestClient(String firstname, String lastname, String numtel, String email, String adress, String password){
-      super(firstname, lastname, numtel, email , adress, password);
-      }
+        super(firstname, lastname, numtel, email , adress, password);
+    }
+
+
 }

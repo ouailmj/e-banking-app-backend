@@ -15,6 +15,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class GestTransac extends User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gesttransac_seq")
@@ -26,28 +30,14 @@ public class GestTransac extends User implements Serializable {
     @JsonBackReference
     private Agency agency;
 
-public GestTransac(){
+    @Builder
+    public GestTransac(Long id, String password, String firstname, String lastname, String email, String numtel, boolean isValid, String adress, String status, String token, Set<Role> roles, Agency agency) {
+        super(id, password, firstname, lastname, email, numtel, isValid, adress, status, token, roles);
+        this.agency = agency;
+    }
+
+    public GestTransac(String firstname, String lastname, String numtel, String email, String adress, String password){
+        super(firstname, lastname, numtel, email , adress, password);
+    }
 
 }
-
-public GestTransac(String firstname, String lastname, String numtel, String email, String adress, String password){
-  super(firstname, lastname, numtel, email , adress, password);
-  }
-
-    /**
-     * @return Long return the id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-  }
-
-
