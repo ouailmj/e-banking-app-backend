@@ -16,7 +16,7 @@ import com.example.ebankingspg.java.model.*;
 @CrossOrigin()
 @RestController
 @RequestMapping({"/gestclients"})
-public class GestclientController {
+public class GestClientController {
 
     @Autowired
     private GestClientService gestClientService;
