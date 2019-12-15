@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-public class Client implements Serializable {
+public class Client extends User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_seq")
     @SequenceGenerator(name = "client_seq", sequenceName = "client_seq", allocationSize = 1)
@@ -39,7 +39,10 @@ public class Client implements Serializable {
 
     public Client(){}
 
-
+    public Client(String firstname, String lastname, String numtel, String email, String adress, Agence agence, String password){
+      super(firstname, lastname, numtel, email , adress, password);
+      this.agence=agence;
+      }
 
     /**
      * @return Long return the id

@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-public class GestTransac implements Serializable {
+public class GestTransac extends User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gesttransac_seq")
     @SequenceGenerator(name = "gesttransacn_seq", sequenceName = "gesttransac_seq", allocationSize = 1)
@@ -33,6 +33,10 @@ public class GestTransac implements Serializable {
 public GestTransac(){
 
 }
+
+public GestTransac(String firstname, String lastname, String numtel, String email, String adress, String password){
+  super(firstname, lastname, numtel, email , adress, password);
+  }
 
     /**
      * @return Long return the id
