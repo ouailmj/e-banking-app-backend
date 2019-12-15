@@ -35,4 +35,10 @@ public class GestClient extends User implements Serializable {
         super(id, password, firstname, lastname, email, numtel, isValid, adress, status, token, roles);
         this.agency = agency;
     }
+
+    public GestClient(String firstname, String lastname, String numtel, String email, String adress, String password){
+        super(firstname, lastname, numtel, email , adress, password);
+    }
+
+
 }

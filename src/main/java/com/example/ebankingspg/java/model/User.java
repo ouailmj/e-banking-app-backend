@@ -36,8 +36,7 @@ public class User extends AbstractAuditableEntity<User, Long> implements Seriali
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    public User() {
-    }
+    public User(){}
 
     public User(String status) {
         this.status = status;
@@ -46,6 +45,17 @@ public class User extends AbstractAuditableEntity<User, Long> implements Seriali
     public User(String password, String email) {
         this.password = password;
         this.email = email;
+    }
+
+    public User(String firstname, String lastname, String numtel,String email,  String adress, String password){
+
+        super();
+        this.firstname=firstname;
+        this.lastname=lastname;
+        this.email=email;
+        this.numtel=numtel;
+        this.adress=adress;
+
     }
 
     public String getStatus() {
@@ -199,6 +209,15 @@ public class User extends AbstractAuditableEntity<User, Long> implements Seriali
         return this.isValid;
     }
 
+
+    public Set<Role> getRoles() {
+        return this.roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
@@ -208,11 +227,20 @@ public class User extends AbstractAuditableEntity<User, Long> implements Seriali
         return list;
     }
 
-    public Set<Role> getRoles() {
-        return this.roles;
+
+
+    /**
+     * @return boolean return the isValid
+     */
+    public boolean isIsValid() {
+        return isValid;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    /**
+     * @param isValid the isValid to set
+     */
+    public void setIsValid(boolean isValid) {
+        this.isValid = isValid;
     }
+
 }

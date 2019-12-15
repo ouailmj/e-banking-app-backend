@@ -32,7 +32,12 @@ public class Admin extends User implements Serializable {
     private Long id;
 
     @Builder
-    public Admin(Long id, String password, String firstname, String lastname, String email, String numtel, boolean isValid, String adress, String status, String token, Set<Role> roles) {
-        super(id, password, firstname, lastname, email, numtel, isValid, adress, status, token, roles);
+    public Admin( String firstname, String lastname, String email, String numtel, String adress,String password) {
+        super(firstname, lastname, email, numtel,  adress,  password);
     }
+
+    public Admin( String firstname, String lastname, String email, String numtel, String adress,String password) {
+        super(firstname, lastname, email, numtel,  adress,  password);
+    }
+
 }
