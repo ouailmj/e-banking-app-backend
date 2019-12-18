@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/login").permitAll()
 				.antMatchers("/send_email").permitAll()
 				.antMatchers("/forgot_password").permitAll()
-				.antMatchers("/manager_client/**").hasAuthority("ROLE_CLIENT_MANAGER")
+        .antMatchers("/manager_client/**","/admin","/admin/**").hasAuthority("ROLE_CLIENT_MANAGER")
 				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 				.anyRequest().authenticated()
 				.and().sessionManagement()

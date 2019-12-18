@@ -29,9 +29,11 @@ import org.springframework.web.bind.annotation.*;
 import com.example.ebankingspg.java.model.*;
 
 import javax.xml.ws.Response;
+
 @CrossOrigin(origins = "*")
+@RequestMapping(value = "/admin")
 @RestController
-@RequestMapping({ "/admin" })
+
 public class AdminController {
 
 @Autowired
@@ -69,5 +71,7 @@ gestcli.setRoles(roles1);
     gestClientService.create(gestcli);
     return gestcli;
 }
+
+
 
 }
