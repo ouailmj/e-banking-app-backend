@@ -36,6 +36,9 @@ public class Client extends User implements Serializable {
         this.agency = agency;
     }
 
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    private Set<Image> image;
+
 
     @OneToMany(mappedBy = "client")
     Set<Beneficiary> beneficiaries;
