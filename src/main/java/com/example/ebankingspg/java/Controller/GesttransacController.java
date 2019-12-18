@@ -26,7 +26,8 @@ import com.example.ebankingspg.java.model.*;
 @RestController
 @RequestMapping({ "/gesttransacs" })
 public class GesttransacController {
-  @Autowired
+
+   @Autowired
    private GestTransacRepository gesttransrep;
 
    @Autowired

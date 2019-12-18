@@ -36,9 +36,50 @@ public class TypeContrat extends AbstractAuditableEntity<User, Long> implements 
     private double Rate; //taux
 
 
-    @JsonBackReference
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "type_contrat_id")
-    private Account account;
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    private Set<Account> account;
+
+
+    /**
+     * @return Long return the id
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
+     * @return String return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return Set<Account> return the account
+     */
+    public Set<Account> getAccount() {
+        return account;
+    }
+
+    /**
+     * @param account the account to set
+     */
+    public void setAccount(Set<Account> account) {
+        this.account = account;
+    }
 
 }
