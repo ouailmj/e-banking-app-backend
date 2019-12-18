@@ -36,8 +36,8 @@ public class TypeContrat extends AbstractAuditableEntity<User, Long> implements 
     private double Rate; //taux
 
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
-    private Set<Account> account;
+    @OneToMany(mappedBy = "typecontrat", cascade = CascadeType.ALL)
+    private Set<Account> Account;
 
 
     /**
@@ -68,18 +68,21 @@ public class TypeContrat extends AbstractAuditableEntity<User, Long> implements 
         this.name = name;
     }
 
+
+
+
     /**
-     * @return Set<Account> return the account
+     * @return Set<Account> return the Account
      */
     public Set<Account> getAccount() {
-        return account;
+        return Account;
     }
 
     /**
-     * @param account the account to set
+     * @param Account the Account to set
      */
-    public void setAccount(Set<Account> account) {
-        this.account = account;
+    public void setAccount(Set<Account> Account) {
+        this.Account = Account;
     }
 
 }
