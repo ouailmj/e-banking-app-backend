@@ -99,18 +99,6 @@ public class GestClientController {
   @Autowired
   private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-  @PostMapping
-  public GestClient create(@RequestBody GestClient gestcli) {
-
-    String pass = gestcli.getPassword();
-    String newpass = bCryptPasswordEncoder.encode(pass);
-    gestcli.setPassword(newpass);
-    Set<Role> roles1 = new HashSet<Role>();
-    roles1.add(rolerep.findByRole("ROLE_CLIENT_MANAGER"));
-    gestcli.setRoles(roles1);
-        gestClientService.create(gestcli);
-        return gestcli;
-    }
 
     @GetMapping(produces = "application/json")
     @RequestMapping(value = "/manager_client/dashboard")
