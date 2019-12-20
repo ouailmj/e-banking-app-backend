@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.ebankingspg.java.model.*;
 
 import javax.xml.ws.Response;
-@CrossOrigin()
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping({ "/admin" })
 public class AdminController {

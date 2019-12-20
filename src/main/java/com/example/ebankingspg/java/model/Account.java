@@ -53,8 +53,9 @@ public class Account extends AbstractAuditableEntity<User,Long> implements Seria
     @JsonBackReference
     private Client client;
 
+
     @ManyToOne
-    @JoinColumn(name = "clientId")
+    @JoinColumn(name = "typecontratId")
     @JsonBackReference
     private TypeContrat typecontrat;
 
