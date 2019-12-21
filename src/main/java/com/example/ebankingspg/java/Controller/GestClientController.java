@@ -24,6 +24,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.ebankingspg.java.model.*;
@@ -32,6 +33,7 @@ import javax.xml.ws.Response;
 
 @CrossOrigin(origins = "*")
 @RestController
+@Controller("/gestclient")
 public class GestClientController {
 
   @Autowired
