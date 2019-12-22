@@ -9,10 +9,15 @@ import com.example.ebankingspg.java.services.AccountService;
 import com.example.ebankingspg.java.services.ClientService;
 import com.example.ebankingspg.java.services.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.*;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 @RequestMapping("/purchase")
 @CrossOrigin(origins = "*")
@@ -63,6 +68,13 @@ public class PurchaseController {
             System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping(value = "")
+    public Page<Purchase> findAll(@RequestParam(name = "page", defaultValue = "0") int page,
+                                  @RequestParam(name = "size", defaultValue = "9") int size,
+                                  @RequestParam(name = "sort", defaultValue = "createdDate") String sort) {
+        return purchaseService.findAll(page, size, sort);
     }
 
 }

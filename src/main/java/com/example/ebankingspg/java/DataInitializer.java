@@ -40,9 +40,10 @@ public class DataInitializer implements CommandLineRunner {
     private final CommissionService commissionService;
     private final DeviseService deviseService;
     private final OperatorService operatorService;
+    private final PurchaseService purchaseService;
 
     @Autowired
-    public DataInitializer(UserService userService, AdminService adminService, ClientService clientService, GestClientService gestClientService, GestTransacService gestTransacService, RoleService roleService, TypeContractService typeContractService, AccountService accountService, TransactionService transactionService, AgenceService agenceService, CommissionService commissionService, DeviseService deviseService, OperatorService operatorService) {
+    public DataInitializer(UserService userService, AdminService adminService, ClientService clientService, GestClientService gestClientService, GestTransacService gestTransacService, RoleService roleService, TypeContractService typeContractService, AccountService accountService, TransactionService transactionService, AgenceService agenceService, CommissionService commissionService, DeviseService deviseService, OperatorService operatorService, PurchaseService purchaseService) {
         this.userService = userService;
         this.adminService = adminService;
         this.clientService = clientService;
@@ -56,12 +57,13 @@ public class DataInitializer implements CommandLineRunner {
         this.commissionService = commissionService;
         this.deviseService = deviseService;
         this.operatorService = operatorService;
+        this.purchaseService = purchaseService;
     }
 
     @Override
     public void run(String... args) throws Exception {
 
-        if(LOAD_INITIAL_DATA){
+        if (LOAD_INITIAL_DATA) {
 
             Commission commission = Commission.builder().transfert(10).TVA(10).build();
             commissionService.create(commission);
@@ -128,7 +130,6 @@ public class DataInitializer implements CommandLineRunner {
                     .build();
 
 
-
             userService.create(client);
 
 
@@ -148,12 +149,12 @@ public class DataInitializer implements CommandLineRunner {
 
 
             //anass
-            Account account1=Account.builder().client(client).accountvalidated(true).balance(10000000).rib("ATAG334545633MARR").typeaccount(typeContrat1.getName()).blockedbalance("2000").typecontrat(typeContrat1).build();
-            Account account2=Account.builder().client(client).accountvalidated(true).balance(70000000).rib("ATAG675768678MARR").typeaccount(typeContrat1.getName()).blockedbalance("2000").typecontrat(typeContrat1).build();
+            Account account1 = Account.builder().client(client).accountvalidated(true).balance(10000000).rib("ATAG334545633MARR").typeaccount(typeContrat1.getName()).blockedbalance("2000").typecontrat(typeContrat1).build();
+            Account account2 = Account.builder().client(client).accountvalidated(true).balance(70000000).rib("ATAG675768678MARR").typeaccount(typeContrat1.getName()).blockedbalance("2000").typecontrat(typeContrat1).build();
             accountService.create(account1);
             accountService.create(account2);
 
-            Transaction transaction2=Transaction.builder().account(account1).active(false).amount(2000).accountTarget(account2).build();
+            Transaction transaction2 = Transaction.builder().account(account1).active(false).amount(2000).accountTarget(account2).build();
             transactionService.create(transaction2);
 
             Set<Role> roles3 = new HashSet<Role>();
@@ -163,6 +164,11 @@ public class DataInitializer implements CommandLineRunner {
 
             Operator operator = Operator.builder().name("operator GSM").build();
             operatorService.create(operator);
+
+            for (int i = 0; i < 60; i++) {
+                Purchase purchase = Purchase.builder().amount(10 * i).phoneNumber("0632844738").type("Recharge").client(client).build();
+                purchaseService.create(purchase);
+            }
 
         }
 

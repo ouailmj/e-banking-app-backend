@@ -32,6 +32,9 @@ public class AbstractService<ID, R extends JpaRepository<M, ID>, M > {
     public Page<M> findAll(int page, int size) {
         return repository.findAll(PageRequest.of(page, size));
     }
+    public Page<M> findAll(int page, int size,String sort) {
+        return repository.findAll(PageRequest.of(page, size, Sort.by(sort).descending()));
+    }
 
     public Page<M> findAll(int page, int size, Sort.Order... orders) {
         return repository.findAll(PageRequest.of(page, size, Sort.by(orders)));
