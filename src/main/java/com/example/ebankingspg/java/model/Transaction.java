@@ -3,15 +3,7 @@ package com.example.ebankingspg.java.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -26,12 +18,15 @@ import lombok.*;
 
 public class Transaction extends AbstractAuditableEntity<User, Long> implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transact_seq")
     @SequenceGenerator(name = "transact_seq", sequenceName = "transact_seq", allocationSize = 1)
     private Long id;
     private double amount;
     private String motif;
     private Boolean active;
+
+    //aniss
+    private String recipientOutOfBank;
 
     @ManyToOne
     @JoinColumn(name = "account_id")
@@ -39,9 +34,14 @@ public class Transaction extends AbstractAuditableEntity<User, Long> implements 
     private Account account;
 
 
+    //@OneToOne(fetch = FetchType.LAZY, optional = false)
     @JsonBackReference
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne
     @JoinColumn(name = "account_target_id")
     private Account accountTarget;
+
+    //aniss
+    @Transient
+    private String description;
 
 }

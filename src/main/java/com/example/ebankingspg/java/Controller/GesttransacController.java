@@ -22,12 +22,11 @@ import com.example.ebankingspg.java.Repository.GestTransacRepository;
 import com.example.ebankingspg.java.Repository.RoleRepository;
 import com.example.ebankingspg.java.Repository.UserRepository;
 import com.example.ebankingspg.java.model.*;
-@CrossOrigin(origins = "*")
+@CrossOrigin()
 @RestController
 @RequestMapping({ "/gesttransacs" })
 public class GesttransacController {
-
-   @Autowired
+  @Autowired
    private GestTransacRepository gesttransrep;
 
    @Autowired

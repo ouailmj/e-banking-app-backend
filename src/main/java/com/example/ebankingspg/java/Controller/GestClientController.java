@@ -24,7 +24,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.ebankingspg.java.model.*;
@@ -33,7 +32,6 @@ import javax.xml.ws.Response;
 
 @CrossOrigin(origins = "*")
 @RestController
-@Controller("/gestclient")
 public class GestClientController {
 
   @Autowired
@@ -85,6 +83,33 @@ public class GestClientController {
         client1.setNumtel(updateClientRequest.getPhone());
         clientRepository.save(client1);
         return ResponseEntity.ok(new StringResponse("user updated successfully"));
+    }
+
+
+    @GetMapping(produces = "application/json")
+    public List<GestClient> firstPage() {
+        List<GestClient> gestclients = gestClientService.findAll();
+        return gestclients;
+    }
+  @Autowired
+  private RoleRepository rolerep;
+
+
+
+  @Autowired
+  private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+  @PostMapping
+  public GestClient create(@RequestBody GestClient gestcli) {
+
+    String pass = gestcli.getPassword();
+    String newpass = bCryptPasswordEncoder.encode(pass);
+    gestcli.setPassword(newpass);
+    Set<Role> roles1 = new HashSet<Role>();
+    roles1.add(rolerep.findByRole("ROLE_CLIENT_MANAGER"));
+    gestcli.setRoles(roles1);
+        gestClientService.create(gestcli);
+        return gestcli;
     }
 
     @GetMapping(produces = "application/json")

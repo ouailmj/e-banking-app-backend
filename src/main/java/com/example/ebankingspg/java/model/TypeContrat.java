@@ -18,12 +18,13 @@ import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 @Entity
-@Builder
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class TypeContrat extends AbstractAuditableEntity<User, Long> implements Serializable {
@@ -36,53 +37,11 @@ public class TypeContrat extends AbstractAuditableEntity<User, Long> implements 
     private double Rate; //taux
 
 
+   //aniss darori prblm f serialisation
+    /*
     @OneToMany(mappedBy = "typecontrat", cascade = CascadeType.ALL)
     private Set<Account> Account;
-
-
-    /**
-     * @return Long return the id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    /**
-     * @return String return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-
-
-    /**
-     * @return Set<Account> return the Account
-     */
-    public Set<Account> getAccount() {
-        return Account;
-    }
-
-    /**
-     * @param Account the Account to set
-     */
-    public void setAccount(Set<Account> Account) {
-        this.Account = Account;
-    }
-
+*/
+    //aniss-fin
 }
+

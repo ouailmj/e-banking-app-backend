@@ -1,4 +1,3 @@
-
 package com.example.ebankingspg.java.Repository;
 
 import com.example.ebankingspg.java.model.Debit;
