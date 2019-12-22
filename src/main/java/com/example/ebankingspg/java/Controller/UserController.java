@@ -114,14 +114,19 @@ public class UserController {
         user.orElseThrow(()->new UsernameNotFoundException("email not found"));
         User userDatabase = user.get();
         userDatabase.setToken(getAlphaNumericString(20));
-        SimpleMailMessage msg = new SimpleMailMessage();
         userRepository.save(userDatabase);
-        msg.setTo(sendEmailRequest.getEmail());
-        msg.setSubject("Manager client banque");
-        msg.setText("Hey \n here is the link \n http://localhost:4200/forgot_password/" + userDatabase.getToken());
-        javaMailSender.send(msg);
+        resetPasswordEmail(userDatabase.getToken(),sendEmailRequest.getEmail());
         return ResponseEntity.ok(new StringResponse("Email sent successfully"));
     }
+
+    private void resetPasswordEmail(String token,String email){
+        SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setTo(email);
+        msg.setSubject("Manager client banque");
+        msg.setText("Hey \n here is the link \n http://localhost:4200/forgot_password/" + token);
+        javaMailSender.send(msg);
+    }
+
 
     static String getAlphaNumericString(int n)
     {

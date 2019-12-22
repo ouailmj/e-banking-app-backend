@@ -13,7 +13,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
-    //aniss
-    Optional<Account> findByRib(String rib);
-
+    Optional<Account> findByRib(String str);
 }
