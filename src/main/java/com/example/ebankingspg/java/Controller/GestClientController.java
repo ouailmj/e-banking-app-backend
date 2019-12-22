@@ -144,20 +144,6 @@ public class GestClientController {
         return gestclients;
     }
 
-
-    @GetMapping(produces = "application/json")
-    public List<GestClient> firstPage() {
-        List<GestClient> gestclients = gestClientService.findAll();
-        return gestclients;
-    }
-  @Autowired
-  private RoleRepository rolerep;
-
-
-
-  @Autowired
-  private BCryptPasswordEncoder bCryptPasswordEncoder;
-
   @PostMapping
   public GestClient create(@RequestBody GestClient gestcli) {
 
@@ -250,7 +236,7 @@ public class GestClientController {
         Optional<Account> account = accountRepository.findByRib(rechargeAccountRequest.getRib());
         account.orElseThrow(()->new Exception("Account not found"));
         Account account1 = account.get();
-        if(rechargeAccountRequest.getSomme()>100 && account1.isAccountvalidated()){
+        if(rechargeAccountRequest.getSomme()>100 && account1.getAccountvalidated()){
             account1.setBalance(account1.getBalance() + rechargeAccountRequest.getSomme());
             SimpleMailMessage msg = new SimpleMailMessage();
             msg.setTo(account1.getClient().getEmail());

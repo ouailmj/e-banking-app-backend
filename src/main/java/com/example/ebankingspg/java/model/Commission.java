@@ -33,9 +33,4 @@ public class Commission extends AbstractAuditableEntity<User,Long> implements Se
     private double TVA;
     private double transfert;
 
-    //aniss
-    private double commission;
-    private String typeContrat;
-
-
 }

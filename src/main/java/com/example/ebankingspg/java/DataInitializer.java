@@ -15,7 +15,7 @@ import static com.example.ebankingspg.java.model.Admin.*;
 @Component
 public class DataInitializer implements CommandLineRunner {
 
-    private static final boolean LOAD_INITIAL_DATA = false;
+    private static final boolean LOAD_INITIAL_DATA = true;
     private static final String ROLE_ADMIN = "ROLE_ADMIN";
     private static final String ROLE_CLIENT = "ROLE_CLIENT";
     private static final String ROLE_CLIENT_MANAGER = "ROLE_CLIENT_MANAGER";
@@ -36,10 +36,12 @@ public class DataInitializer implements CommandLineRunner {
     private final RoleService roleService;
     private final AccountService accountService;
     private final TransactionService transactionService;
-
+    private final AgenceService agenceService;
+    private final CommissionService commissionService;
+    private final DeviseService deviseService;
 
     @Autowired
-    public DataInitializer(UserService userService, AdminService adminService, ClientService clientService, GestClientService gestClientService, GestTransacService gestTransacService, RoleService roleService, TypeContractService typeContractService, AccountService accountService, TransactionService transactionService) {
+    public DataInitializer(UserService userService, AdminService adminService, ClientService clientService, GestClientService gestClientService, GestTransacService gestTransacService, RoleService roleService, TypeContractService typeContractService, AccountService accountService, TransactionService transactionService, AgenceService agenceService, CommissionService commissionService, DeviseService deviseService) {
         this.userService = userService;
         this.adminService = adminService;
         this.clientService = clientService;
@@ -49,12 +51,21 @@ public class DataInitializer implements CommandLineRunner {
         this.typeContractService = typeContractService;
         this.accountService = accountService;
         this.transactionService = transactionService;
+        this.agenceService = agenceService;
+        this.commissionService = commissionService;
+        this.deviseService = deviseService;
     }
 
     @Override
     public void run(String... args) throws Exception {
 
         if(LOAD_INITIAL_DATA){
+
+            Commission commission = Commission.builder().transfert(10).TVA(10).build();
+            commissionService.create(commission);
+
+            Devise devise = Devise.builder().exchangeRate(10).name("DHS").build();
+            deviseService.create(devise);
 
             Role role_client_manager = Role.builder().role(ROLE_CLIENT_MANAGER).build();
             Role role_client = Role.builder().role(ROLE_CLIENT).build();
@@ -97,6 +108,9 @@ public class DataInitializer implements CommandLineRunner {
 
             Set<Role> roles1 = new HashSet<Role>();
             roles1.add(roleService.findByRole(ROLE_CLIENT));
+
+            Agency agency = Agency.builder().name("agenceAtlas1").build();
+            agenceService.create(agency);
             Client client = Client.
                     builder()
                     .email("client@gmail.com")
@@ -108,8 +122,13 @@ public class DataInitializer implements CommandLineRunner {
                     .lastname("test")
                     .numtel("642215381")
                     .status("test")
+                    .agency(agency)
                     .build();
+
+
+
             userService.create(client);
+
 
             Set<Role> roles2 = new HashSet<Role>();
             roles2.add(roleService.findByRole(ROLE_CLIENT_MANAGER));
@@ -127,8 +146,8 @@ public class DataInitializer implements CommandLineRunner {
 
 
             //anass
-            Account account1=Account.builder().client(client).accountvalidated(true).balance(10000000).rib("334545633").typecontrat(typeContrat1).build();
-            Account account2=Account.builder().client(client).accountvalidated(true).balance(70000000).rib("675768678").typecontrat(typeContrat1).build();
+            Account account1=Account.builder().client(client).accountvalidated(true).balance(10000000).rib("ATAG334545633MARR").typeaccount(typeContrat1.getName()).blockedbalance("2000").typecontrat(typeContrat1).build();
+            Account account2=Account.builder().client(client).accountvalidated(true).balance(70000000).rib("ATAG675768678MARR").typeaccount(typeContrat1.getName()).blockedbalance("2000").typecontrat(typeContrat1).build();
             accountService.create(account1);
             accountService.create(account2);
 
