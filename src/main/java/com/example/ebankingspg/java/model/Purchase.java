@@ -19,7 +19,7 @@ public class Purchase {
     private Long id;
 
     private String type;
-    private String amount;
+    private double amount;
     private String phoneNumber;
 
     @JsonIgnore

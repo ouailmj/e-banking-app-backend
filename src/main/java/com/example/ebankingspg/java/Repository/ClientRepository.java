@@ -1,5 +1,6 @@
 package com.example.ebankingspg.java.Repository;
 
+import com.example.ebankingspg.java.model.Account;
 import com.example.ebankingspg.java.model.Client;
 import com.example.ebankingspg.java.model.User;
 
@@ -15,5 +16,6 @@ import org.springframework.stereotype.Repository;
 public interface ClientRepository extends JpaRepository<Client, Long> {
 
     Optional<Client> findByEmail(String email);
+    public Client findByAccount(Account account);
 
 }

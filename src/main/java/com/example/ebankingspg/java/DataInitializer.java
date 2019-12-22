@@ -39,9 +39,10 @@ public class DataInitializer implements CommandLineRunner {
     private final AgenceService agenceService;
     private final CommissionService commissionService;
     private final DeviseService deviseService;
+    private final OperatorService operatorService;
 
     @Autowired
-    public DataInitializer(UserService userService, AdminService adminService, ClientService clientService, GestClientService gestClientService, GestTransacService gestTransacService, RoleService roleService, TypeContractService typeContractService, AccountService accountService, TransactionService transactionService, AgenceService agenceService, CommissionService commissionService, DeviseService deviseService) {
+    public DataInitializer(UserService userService, AdminService adminService, ClientService clientService, GestClientService gestClientService, GestTransacService gestTransacService, RoleService roleService, TypeContractService typeContractService, AccountService accountService, TransactionService transactionService, AgenceService agenceService, CommissionService commissionService, DeviseService deviseService, OperatorService operatorService) {
         this.userService = userService;
         this.adminService = adminService;
         this.clientService = clientService;
@@ -54,6 +55,7 @@ public class DataInitializer implements CommandLineRunner {
         this.agenceService = agenceService;
         this.commissionService = commissionService;
         this.deviseService = deviseService;
+        this.operatorService = operatorService;
     }
 
     @Override
@@ -158,6 +160,9 @@ public class DataInitializer implements CommandLineRunner {
             roles3.add(roleService.findByRole(ROLE_TRANSACTION_MANAGER));
             GestTransac transactionManager = GestTransac.builder().email("transaction_manager@gmail.com").password(passwordEncoder.encode("transaction_manager")).isValid(true).roles(roles3).build();
             userService.create(transactionManager);
+
+            Operator operator = Operator.builder().name("operator GSM").build();
+            operatorService.create(operator);
 
         }
 

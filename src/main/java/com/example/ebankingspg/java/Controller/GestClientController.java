@@ -1,43 +1,30 @@
 package com.example.ebankingspg.java.Controller;
 
-import java.util.*;
-import java.text.SimpleDateFormat;
-
 import com.example.ebankingspg.java.Repository.*;
+import com.example.ebankingspg.java.model.*;
 import com.example.ebankingspg.java.request.AddAccountRequest;
 import com.example.ebankingspg.java.request.AddClientRequest;
 import com.example.ebankingspg.java.request.RechargeAccountRequest;
 import com.example.ebankingspg.java.request.UpdateClientRequest;
 import com.example.ebankingspg.java.response.ChartResponse;
-import com.example.ebankingspg.java.response.ClientResponse;
-import com.example.ebankingspg.java.Repository.AgenceRepository;
-import com.example.ebankingspg.java.Repository.ClientRepository;
-import com.example.ebankingspg.java.Repository.CommissionRepository;
-import com.example.ebankingspg.java.Repository.DeviseRepository;
-import com.example.ebankingspg.java.Repository.RoleRepository;
 import com.example.ebankingspg.java.response.StatistiqueResponse;
 import com.example.ebankingspg.java.response.StringResponse;
 import com.example.ebankingspg.java.services.GestClientService;
-import com.example.ebankingspg.java.services.RoleService;
-
 import com.nexmo.client.HttpConfig;
 import com.nexmo.client.NexmoClient;
 import com.nexmo.client.sms.SmsSubmissionResponse;
 import com.nexmo.client.sms.SmsSubmissionResponseMessage;
 import com.nexmo.client.sms.messages.TextMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.ebankingspg.java.model.*;
-
-import javax.xml.ws.Response;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @CrossOrigin(origins = "*")
 @RestController

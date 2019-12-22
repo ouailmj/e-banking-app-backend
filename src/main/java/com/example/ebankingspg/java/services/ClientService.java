@@ -1,6 +1,7 @@
 package com.example.ebankingspg.java.services;
 
 import com.example.ebankingspg.java.Repository.ClientRepository;
+import com.example.ebankingspg.java.model.Account;
 import com.example.ebankingspg.java.model.Client;
 import org.springframework.stereotype.Service;
 
@@ -9,4 +10,8 @@ public class ClientService extends AbstractService<Long, ClientRepository, Clien
     public ClientService(ClientRepository repository) {
         super(repository);
     }
+    public Client findByAccount(Account account){
+        return repository.findByAccount(account);
+    }
+
 }
