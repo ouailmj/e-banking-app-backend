@@ -1,5 +1,6 @@
 package com.example.ebankingspg.java.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,6 +19,12 @@ public class Operator extends AbstractAuditableEntity<User,Long> implements Seri
     private Long id;
 
     private String name;
+    @JsonIgnore
     private String apiKey;
+    @JsonIgnore
     private String host;
+
+    @JsonIgnore
+    @ManyToOne
+    private Client client;
 }

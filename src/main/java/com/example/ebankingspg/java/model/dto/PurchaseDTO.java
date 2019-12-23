@@ -1,5 +1,6 @@
 package com.example.ebankingspg.java.model.dto;
 
+import com.example.ebankingspg.java.model.Operator;
 import lombok.*;
 
 @Getter
@@ -13,5 +14,6 @@ public class PurchaseDTO {
     private double amount;
     private String phoneNumber;
     private String rib;
+    private String operator;
 
 }

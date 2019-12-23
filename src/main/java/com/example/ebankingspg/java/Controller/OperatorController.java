@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 import static com.example.ebankingspg.java.Controller.PurchaseController.*;
+import static com.example.ebankingspg.java.DataInitializer.API_KEY;
 
 @CrossOrigin(origins = "*")
 @RestController

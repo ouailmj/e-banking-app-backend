@@ -16,4 +16,7 @@ public class OperatorService extends AbstractService<Long, OperatorRepository, O
         return repository.findAll();
     }
 
+    public Operator findByName(String name) {
+        return repository.findByName(name);
+    }
 }

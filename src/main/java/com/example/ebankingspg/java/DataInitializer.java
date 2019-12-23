@@ -27,6 +27,10 @@ public class DataInitializer implements CommandLineRunner {
     private static final String TYPE_CONTRACT3 = "PLATINIUM ACCOUNT";
     private static final String TYPE_CONTRACT4 = "GOLD ACCOUNT";
 
+    //API KEY FOR OPERATOR
+    public static final String API_KEY = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJFLUJBTkstQVBQXzIiLCJleHAiOjE1Nzc3NDE3MDEsImNsaWVudF9pZCI6MX0.yJ0R24inxkq7xtJ91rGPT2smYMBk6e_4NjJ3Sirywdz4ULN1t2Ky4uYOG6LgX-W-xzDCw95A3bOxgYYCv9JYNg";
+
+
     private final UserService userService;
     private final TypeContractService typeContractService;
     private final AdminService adminService;
@@ -150,7 +154,7 @@ public class DataInitializer implements CommandLineRunner {
 
             //anass
             Account account1 = Account.builder().client(client).accountvalidated(true).balance(10000000).rib("ATAG334545633MARR").typeaccount(typeContrat1.getName()).blockedbalance("2000").typecontrat(typeContrat1).build();
-            Account account2 = Account.builder().client(client).accountvalidated(true).balance(70000000).rib("ATAG675768678MARR").typeaccount(typeContrat1.getName()).blockedbalance("2000").typecontrat(typeContrat1).build();
+            Account account2 = Account.builder().client(client).accountvalidated(true).balance(20).rib("ATAG675768678MARR").typeaccount(typeContrat1.getName()).blockedbalance("2000").typecontrat(typeContrat1).build();
             accountService.create(account1);
             accountService.create(account2);
 
@@ -162,7 +166,7 @@ public class DataInitializer implements CommandLineRunner {
             GestTransac transactionManager = GestTransac.builder().email("transaction_manager@gmail.com").password(passwordEncoder.encode("transaction_manager")).isValid(true).roles(roles3).build();
             userService.create(transactionManager);
 
-            Operator operator = Operator.builder().name("operator GSM").build();
+            Operator operator = Operator.builder().name("operator GSM").apiKey(API_KEY).host("http://localhost:9000/").build();
             operatorService.create(operator);
 
             for (int i = 0; i < 60; i++) {
