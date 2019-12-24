@@ -4,16 +4,20 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.annotation.PostConstruct;
+import javax.validation.Valid;
 
 import com.example.ebankingspg.java.Repository.*;
+import com.example.ebankingspg.java.model.dto.PhoneVerificationVerifyTransactionDTO;
 import com.example.ebankingspg.java.request.CreateRecipientRequest;
 import com.example.ebankingspg.java.request.CreateTransactionRequest;
 import com.example.ebankingspg.java.response.AccountResponse;
 import com.example.ebankingspg.java.response.StringResponse;
 import com.example.ebankingspg.java.response.TransactionDetailsResponse;
+import com.example.ebankingspg.java.services.PhoneVerificationService;
 import com.example.ebankingspg.java.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.ebankingspg.java.model.*;
@@ -36,23 +40,41 @@ public class TransactionController {
     @Autowired
     private TransactionService transactionService;
 
+
+    @Autowired
+    private PhoneVerificationService phoneVerificationService;
+
+
     @GetMapping(produces = "application/json")
     @RequestMapping(value = "/transaction/createTransaction",method = RequestMethod.POST)
-    public ResponseEntity<?> createTransaction(@RequestBody CreateTransactionRequest createTransactionRequest) throws Exception {
+    public ResponseEntity<?> createTransaction(@Valid @RequestBody PhoneVerificationVerifyTransactionDTO dto) throws Exception {
+
+        /*try {
+            phoneVerificationService.verify(dto.getCountryCode(),dto.getPhoneNumber(),dto.getToken());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("token invalid");
+        }*/
+
         //emetteur?
-        Optional<Account> account = accountRepository.findByRib(createTransactionRequest.getAccount());
+        Optional<Account> account = accountRepository.findByRib(dto.getTransaction().getAccount());
         account.orElseThrow(()->new Exception("User not found"));
         Account account1 = account.get();
         //recepteur?
-        Optional<Account> recipient = accountRepository.findByRib(createTransactionRequest.getRecipient());
+        Optional<Account> recipient = accountRepository.findByRib(dto.getTransaction().getRecipient());
         String str;
         if(!recipient.isPresent()){
-            str = transactionService.transfer(account1,null,createTransactionRequest.getAmount(),createTransactionRequest.getRecipient());
+            str = transactionService.transfer(account1,null,dto.getTransaction().getAmount(),dto.getTransaction().getRecipient());
         }else{
             Account recipient1 = recipient.get();
-            str = transactionService.transfer(account1,recipient1,createTransactionRequest.getAmount(),createTransactionRequest.getRecipient());
+            str = transactionService.transfer(account1,recipient1,dto.getTransaction().getAmount(),dto.getTransaction().getRecipient());
         }
-        return ResponseEntity.ok(new StringResponse(str));
+        if(str.equals("error")){
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("not enough money in your account!!");
+        } else if(str.equals("blocked")){
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Your Transaction is sent but blocked");
+        }else{
+            return ResponseEntity.ok(new StringResponse(str));
+        }
     }
 
     @GetMapping(produces = "application/json")

@@ -45,9 +45,10 @@ public class DataInitializer implements CommandLineRunner {
     private final DeviseService deviseService;
     private final OperatorService operatorService;
     private final PurchaseService purchaseService;
+    private final BeneficiaryService beneficiaryService;
 
     @Autowired
-    public DataInitializer(UserService userService, AdminService adminService, ClientService clientService, GestClientService gestClientService, GestTransacService gestTransacService, RoleService roleService, TypeContractService typeContractService, AccountService accountService, TransactionService transactionService, AgenceService agenceService, CommissionService commissionService, DeviseService deviseService, OperatorService operatorService, PurchaseService purchaseService) {
+    public DataInitializer(UserService userService, AdminService adminService, ClientService clientService, GestClientService gestClientService, GestTransacService gestTransacService, RoleService roleService, TypeContractService typeContractService, AccountService accountService, TransactionService transactionService, AgenceService agenceService, CommissionService commissionService, DeviseService deviseService, OperatorService operatorService, PurchaseService purchaseService, BeneficiaryService beneficiaryService) {
         this.userService = userService;
         this.adminService = adminService;
         this.clientService = clientService;
@@ -62,6 +63,7 @@ public class DataInitializer implements CommandLineRunner {
         this.deviseService = deviseService;
         this.operatorService = operatorService;
         this.purchaseService = purchaseService;
+        this.beneficiaryService = beneficiaryService;
     }
 
     @Override
@@ -136,6 +138,22 @@ public class DataInitializer implements CommandLineRunner {
 
             userService.create(client);
 
+            Client clientOperator = Client.
+                    builder()
+                    .email("operator@gmail.com")
+                    .password(passwordEncoder.encode("operator"))
+                    .isValid(true)
+                    .roles(roles1)
+                    .adress("marrakech")
+                    .firstname("operator")
+                    .lastname("operator")
+                    .numtel("642215381")
+                    .status("test")
+                    .agency(agency)
+                    .build();
+
+
+            userService.create(clientOperator);
 
             Set<Role> roles2 = new HashSet<Role>();
             roles2.add(roleService.findByRole(ROLE_CLIENT_MANAGER));
@@ -155,8 +173,10 @@ public class DataInitializer implements CommandLineRunner {
             //anass
             Account account1 = Account.builder().client(client).accountvalidated(true).balance(10000000).rib("ATAG334545633MARR").typeaccount(typeContrat1.getName()).blockedbalance("2000").typecontrat(typeContrat1).build();
             Account account2 = Account.builder().client(client).accountvalidated(true).balance(20).rib("ATAG675768678MARR").typeaccount(typeContrat1.getName()).blockedbalance("2000").typecontrat(typeContrat1).build();
+            Account accountOperator = Account.builder().client(clientOperator).accountvalidated(true).balance(0).rib("ATAG4569871423MARR").typeaccount(typeContrat1.getName()).blockedbalance("0").typecontrat(typeContrat1).build();
             accountService.create(account1);
             accountService.create(account2);
+            accountService.create(accountOperator);
 
             Transaction transaction2 = Transaction.builder().account(account1).active(false).amount(2000).accountTarget(account2).build();
             transactionService.create(transaction2);
@@ -166,7 +186,7 @@ public class DataInitializer implements CommandLineRunner {
             GestTransac transactionManager = GestTransac.builder().email("transaction_manager@gmail.com").password(passwordEncoder.encode("transaction_manager")).isValid(true).roles(roles3).build();
             userService.create(transactionManager);
 
-            Operator operator = Operator.builder().name("operator GSM").apiKey(API_KEY).host("http://localhost:9000/").build();
+            Operator operator = Operator.builder().name("operator GSM").apiKey(API_KEY).host("http://localhost:9000/").client(clientOperator).build();
             operatorService.create(operator);
 
             for (int i = 0; i < 60; i++) {
@@ -174,6 +194,19 @@ public class DataInitializer implements CommandLineRunner {
                 purchaseService.create(purchase);
             }
 
+            Transaction transaction3 = Transaction.builder().account(account1).active(false).amount(2000).accountTarget(account2).build();
+            transactionService.create(transaction3);
+
+            Transaction transaction4 = Transaction.builder().account(account1).active(false).amount(2000).accountTarget(account2).build();
+            transactionService.create(transaction4);
+
+            Transaction transaction5 = Transaction.builder().account(account1).active(false).amount(2000).accountTarget(account2).build();
+            transactionService.create(transaction5);
+
+
+            //Recipient
+            Beneficiary beneficiary = Beneficiary.builder().client(client).name("youssef_client").rib("ATAG675768678MARR").build();
+            beneficiaryService.create(beneficiary);
         }
 
     }

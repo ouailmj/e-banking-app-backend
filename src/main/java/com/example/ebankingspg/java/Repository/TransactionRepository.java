@@ -1,5 +1,6 @@
 package com.example.ebankingspg.java.Repository;
 
+import com.example.ebankingspg.java.model.Account;
 import com.example.ebankingspg.java.model.Transaction;
 import com.example.ebankingspg.java.model.User;
 
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Repository;
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
     @Query("select u from Transaction u where u.account.id = :accountId or u.accountTarget.id = :accountId")
     List<Transaction> findByAccountOrAccountTargetAndSort(@Param("accountId") Long accountId,Sort sort);
+    List<Transaction>findByAccount(Account account);
+    List<Transaction>findByAccountTarget(Account account);
 
     List<Transaction> findByActiveIsFalse();
 
