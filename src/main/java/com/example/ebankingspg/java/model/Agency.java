@@ -31,6 +31,8 @@ public class Agency extends AbstractAuditableEntity<User, Long> implements Seria
     @SequenceGenerator(name = "agence_seq", sequenceName = "agence_seq", allocationSize = 1)
     private Long id;
     private String name;
+    private String address;
+    private String numtel;
 
     @OneToMany(mappedBy = "agency", cascade = CascadeType.ALL)
     private Set<Client> client;
