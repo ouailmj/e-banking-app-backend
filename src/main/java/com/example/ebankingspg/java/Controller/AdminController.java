@@ -125,6 +125,22 @@ public class AdminController {
         return ResponseEntity.ok(adddevise);
     }
     }
+
+@Autowired
+TypeContractService typecontratService;
+
+    @GetMapping(produces = "application/json")
+    @RequestMapping(value = "/admin/typecontrats",method = RequestMethod.POST)
+    public ResponseEntity<?> addtypecontrat(@RequestBody Addtypecontrat typecontrat) throws Exception { {
+
+        TypeContrat devise= new TypeContrat();
+        devise.setName(typecontrat.getName());
+        devise.setRate(typecontrat.getRate());
+
+        typecontratService.create(devise);
+        return ResponseEntity.ok(typecontrat);
+    }
+    }
     @Autowired
     AgenceService agenceservice;
 
@@ -133,7 +149,7 @@ public class AdminController {
     public ResponseEntity<?> addgestagence(@RequestBody Addagencerequest addagence) throws Exception { {
         Agency agence = new Agency();
 
-        agence.setName(addagence.getNom());
+        agence.setName(addagence.getName());
         agence.setNumtel(addagence.getPhone());
         agence.setAddress(addagence.getAddress());
 

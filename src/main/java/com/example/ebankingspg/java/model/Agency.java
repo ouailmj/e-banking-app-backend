@@ -17,6 +17,7 @@ import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 @Entity
@@ -35,12 +36,15 @@ public class Agency extends AbstractAuditableEntity<User, Long> implements Seria
     private String numtel;
 
     @OneToMany(mappedBy = "agency", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Client> client;
 
     @OneToMany(mappedBy = "agency", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<GestClient> gestClients;
 
     @OneToMany(mappedBy = "agency", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<GestTransac> gestTransacs;
 
 }

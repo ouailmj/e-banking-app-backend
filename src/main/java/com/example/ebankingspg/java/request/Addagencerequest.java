@@ -1,13 +1,13 @@
 package com.example.ebankingspg.java.request;
 
 public class Addagencerequest {
-    private String nom;
+    private String name;
     private String address;
     private String phone;
 
 
-    public Addagencerequest(String nom, String address, String phone) {
-        this.nom=nom;
+    public Addagencerequest(String name, String address, String phone) {
+        this.name=name;
         this.address = address;
         this.phone = phone;
 
@@ -22,15 +22,15 @@ public class Addagencerequest {
     /**
      * @return String return the nom
      */
-    public String getNom() {
-        return nom;
+    public String getName() {
+        return name;
     }
 
     /**
-     * @param nom the nom to set
+     * @param name the nom to set
      */
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setNom(String name) {
+        this.name = name;
     }
 
     /**
